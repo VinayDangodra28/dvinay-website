@@ -1,0 +1,161 @@
+@import "tailwindcss" source(none);
+@source ".";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * dvinay.com — Swiss (70%) × Constructivism (20%) × Memphis (10%)
+ * Tokens drive every surface. Never write raw hex in components.
+ */
+
+@theme inline {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-gray: var(--gray);
+  --color-grayline: var(--grayline);
+
+  --color-signal: var(--signal);
+  --color-electric: var(--electric);
+  --color-acid: var(--acid);
+  --color-orange: var(--orange);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter Tight", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0px;
+
+  /* Brand */
+  --paper: oklch(0.969 0.012 85);     /* #F7F4EE off white */
+  --ink: oklch(0.145 0 0);             /* #0B0B0B black */
+  --gray: oklch(0.55 0 0);             /* #6D6D6D */
+  --grayline: oklch(0.88 0.005 85);
+
+  --signal: oklch(0.652 0.234 27);     /* #FF3B30 */
+  --electric: oklch(0.55 0.245 264);   /* #2563FF */
+  --acid: oklch(0.94 0.21 118);        /* #D7FF38 */
+  --orange: oklch(0.72 0.19 50);       /* #FF8A00 */
+
+  /* Shadcn aliases mapped onto Swiss palette */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: var(--grayline);
+  --secondary-foreground: var(--ink);
+  --muted: var(--grayline);
+  --muted-foreground: var(--gray);
+  --accent: var(--signal);
+  --accent-foreground: var(--paper);
+  --destructive: var(--signal);
+  --destructive-foreground: var(--paper);
+  --border: var(--grayline);
+  --input: var(--grayline);
+  --ring: var(--ink);
+}
+
+.dark {
+  --background: var(--ink);
+  --foreground: var(--paper);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body { cursor: none; }
+  ::selection { background: var(--signal); color: var(--paper); }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.03em; }
+}
+
+/* ——— Custom utilities ——— */
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+}
+
+@utility text-mono-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility grid-swiss {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--ink) 8%, transparent) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+}
+
+@utility marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@utility spin-slow { animation: spin-slow 24s linear infinite; }
+
+@keyframes float-y {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@utility float-y { animation: float-y 7s ease-in-out infinite; }
+
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes ticker-dot {
+  0%,100% { opacity: 0.2; }
+  50%     { opacity: 1; }
+}
+@utility ticker-dot { animation: ticker-dot 1.4s ease-in-out infinite; }
